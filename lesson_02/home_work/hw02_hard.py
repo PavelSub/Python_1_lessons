@@ -1,3 +1,7 @@
+__author__ = 'Субботин Павел Юрьевич'
+from datetime import date
+import re
+
 # Задание-1: уравнение прямой вида y = kx + b задано в виде строки.
 # Определить координату y точки с заданной координатой x.
 # вычислите и выведите y
@@ -7,6 +11,20 @@
 # подсказка: x у вас уже есть, остается с помощью срезов получить значения k и b,
 # а затем вевести итоговый результат: print('y = {}'.format(k * x + b))
 
+equation = 'y = -12x + 11111140.2121'
+x = 2.5
+###Вариант 1
+print(f'y = {int(equation[4:7]) * x + float(equation[-13:-1]):}')
+
+###Вариант 2
+l_eq = equation.split(' ')
+per_1 = int(l_eq[2].replace("x", ''))
+per_2 = float(l_eq[4])
+print(f'y = {per_1 * x + per_2:}')
+
+###Вариант 3
+l_per = re.findall(r'[-+]?(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][-+]?\d+)?', equation)
+print(f'y = {float(l_per[0]) * x + float(l_per[1]):}')
 
 # Задание-2: Дата задана в виде строки формата 'dd.mm.yyyy'.
 # Проверить, корректно ли введена дата.
@@ -29,3 +47,15 @@ date = '01.22.1001'
 date = '1.12.1001'
 date = '-2.10.3001'
 """
+
+
+def is_date(dt, d = None):
+    try:
+        d = date(int(dt[-4:]), int(dt[3:5]), int(dt[:2]))
+    except:
+        pass
+    return d
+
+
+dt = '01.11.1985'
+print('Дата не корректна!') if is_date(dt) is None else print('Дата корректна!')
