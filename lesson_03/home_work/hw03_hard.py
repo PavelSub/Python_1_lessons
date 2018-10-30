@@ -1,3 +1,4 @@
+import os
 # Задание-1:
 # Написать программу, выполняющую операции (сложение и вычитание) с простыми дробями.
 # Дроби вводятся и выводятся в формате:
@@ -18,6 +19,40 @@
 # они получают удвоенную ЗП, пропорциональную норме.
 # Кол-во часов, которые были отработаны, указаны в файле "data/hours_of"
 
+p_w = open(os.path.join("data", "workers"), 'r', encoding='UTF-8')
+str_pw = p_w.readlines()
+p_h = open(os.path.join("data", "hours_of"), 'r', encoding='UTF-8')
+str_ph = p_h.readlines()
+
+list_w = []
+a = 1
+for i in range(len(str_ph)-1):
+    hours = {}
+    n, s_n, h_w = str_ph[a].split()
+    hours["n"] = n
+    hours["s_n"] = s_n
+    hours["h_w"] = h_w
+    list_w.append(hours)
+    a += 1
+
+a, b = 1, 0
+for i in range(len(str_pw)-1):
+    n, s_n, inc, s, h = str_pw[a].split()
+    per_inc = int(inc)/int(h)
+    for el in list_w:
+        if n and s_n in el.values():
+            h_w = el['h_w']
+
+            if h < h_w:
+                new_inc = int(inc) + (int(h_w) - int(h))*int(per_inc)
+            elif h == h_w:
+                new_inc = int(inc)
+            elif h > h_w:
+                new_inc = int(inc) - (int(h_w) - int(h))*int(per_inc)
+            print(f'Сотрудник {n} {s_n} получит {new_inc}')
+    a += 1
+    b += 1
+
 
 # Задание-3:
 # Дан файл ("data/fruits") со списком фруктов.
@@ -31,3 +66,15 @@
 # Подсказка:
 # Чтобы получить список больших букв русского алфавита:
 # print(list(map(chr, range(ord('А'), ord('Я')+1))))
+
+# path = os.path.join("data","fruits.txt")
+# f = open(path, "r", encoding="UTF-8")
+# lst = f.readlines()
+# alph = list(map(chr, range(ord('А'), ord('Я')+1)))
+# for l in alph:
+#     file = open(f'{l:} - фрук.txt', "w")
+#     for line in lst:
+#         if l in line:
+#             file.write(line)
+#     file.close()
+# f.close()
