@@ -1,3 +1,5 @@
+
+import sys
 # Задача-1:
 # Напишите небольшую консольную утилиту,
 # позволяющую работать с папками текущей директории.
@@ -14,12 +16,42 @@
 # оформленные в виде соответствующих функций,
 # и импортированные в данный файл из easy.py
 
+# print(sys.path)
+import os
+import easy
+
+def main():
+    while True:
+        print('Для выбора команды воспользуйтесь')
+        print('числами от 1 до 5')
+        print('1 - Перейти в папку')
+        print('2 - Просмотреть содержимое текущей папки')
+        print('3 - Удалить папку')
+        print('4 - Создать папку')
+        print('5 - Завершение программы')
+        answer = int(input('Выберите действие: '))
+        if answer == 1:
+            change_d(str(input('Укажите имя директории: ')))
+        elif answer == 2:
+            print(easy.view_d())
+        elif answer == 3:
+            easy.delete_f(str(input('Укажите имя директории: ')))
+        elif answer == 4:
+            easy.create_f(str(input('Укажите имя директории: ')))
+        elif answer == 5:
+            break
 
 
+def change_d(d):
+    d = os.path.join(os.getcwd(), d)
+    if os.path.exists(d):
+        os.chdir(d)
+        print(f'Текущая директория изменена на {os.getcwd()}')
+    else:
+        print(f'Не удалось изменить диреторию на {d}')
 
 
-
-
+main()
 
 
 
